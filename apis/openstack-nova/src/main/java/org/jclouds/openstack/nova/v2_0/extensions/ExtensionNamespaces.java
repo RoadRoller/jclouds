@@ -111,6 +111,11 @@ public final class ExtensionNamespaces {
     */
    public static final String CONSOLES = "http://docs.openstack.org/compute/ext/os-consoles/api/v2";
 
+   /**
+    * Attach interfaces extension
+   */
+   public static final String ATTACH_INTERFACES = "http://docs.openstack.org/compute/ext/interfaces/api/v1.1";
+
    private ExtensionNamespaces() {
       throw new AssertionError("intentionally unimplemented");
    }
