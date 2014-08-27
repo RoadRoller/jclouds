@@ -22,6 +22,7 @@ import java.util.Set;
 import org.jclouds.javax.annotation.Nullable;
 import org.jclouds.location.Zone;
 import org.jclouds.location.functions.ZoneToEndpoint;
+import org.jclouds.openstack.nova.v2_0.extensions.AttachInterfaceApi;
 import org.jclouds.openstack.nova.v2_0.extensions.AvailabilityZoneApi;
 import org.jclouds.openstack.nova.v2_0.extensions.ConsolesApi;
 import org.jclouds.openstack.nova.v2_0.extensions.FlavorExtraSpecsApi;
@@ -201,4 +202,11 @@ public interface NovaApi extends Closeable {
    @Delegate
    Optional<? extends ConsolesApi> getConsolesExtensionForZone(
          @EndpointParam(parser = ZoneToEndpoint.class) @Nullable String zone);
+
+	/**
+	 * Provides access to attach interface features.
+	 */
+	@Delegate
+	Optional<? extends AttachInterfaceApi> getAttachInterfaceApiExtensionForZone(
+			@EndpointParam(parser = ZoneToEndpoint.class) @Nullable String zone);
 }
