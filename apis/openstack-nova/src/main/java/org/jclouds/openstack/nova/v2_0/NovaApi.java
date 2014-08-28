@@ -207,6 +207,6 @@ public interface NovaApi extends Closeable {
 	 * Provides access to attach interface features.
 	 */
 	@Delegate
-	Optional<? extends AttachInterfaceApi> getAttachInterfaceApiExtensionForZone(
-			@EndpointParam(parser = ZoneToEndpoint.class) @Nullable String zone);
+	Optional<? extends AttachInterfaceApi> getAttachInterfaceApi(
+			@EndpointParam(parser = ZoneToEndpoint.class) String zone);
 }
