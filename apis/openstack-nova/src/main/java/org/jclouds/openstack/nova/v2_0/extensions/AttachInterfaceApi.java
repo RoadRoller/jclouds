@@ -30,7 +30,6 @@ import org.jclouds.rest.annotations.Payload;
 import org.jclouds.rest.annotations.PayloadParam;
 import org.jclouds.rest.annotations.RequestFilters;
 import org.jclouds.rest.annotations.SelectJson;
-import org.jclouds.rest.annotations.WrapWith;
 
 import javax.inject.Named;
 import javax.ws.rs.Consumes;
