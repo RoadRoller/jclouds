@@ -19,7 +19,6 @@ package org.jclouds.openstack.nova.v2_0.domain;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
-import org.jclouds.javax.annotation.Nullable;
 
 import javax.inject.Named;
 import java.beans.ConstructorProperties;
@@ -43,7 +42,7 @@ public class InterfaceAttachment {
       private String portId;
       private PortState portState;
       private String macAddress;
-      private ImmutableSet<IP> fixedIps;
+      private ImmutableSet<FixedIP> fixedIps;
 
       /**
        * @see InterfaceAttachment#getNetworkId()
@@ -80,7 +79,7 @@ public class InterfaceAttachment {
       /**
        * @see InterfaceAttachment#getFixedIps()
        */
-      public T fixedIps(ImmutableSet<IP> fixedIps) {
+      public T fixedIps(ImmutableSet<FixedIP> fixedIps) {
          this.fixedIps = fixedIps;
          return self();
       }
@@ -102,7 +101,7 @@ public class InterfaceAttachment {
       }
    }
 
-   @Named("network_id")
+   @Named("net_id")
    private String networkId;
    @Named("port_id")
    private String portId;
@@ -111,19 +110,18 @@ public class InterfaceAttachment {
    @Named("mac_addr")
    private String macAddress;
    @Named("fixed_ips")
-   private ImmutableSet<IP> fixedIps;
+   private ImmutableSet<FixedIP> fixedIps;
 
-   @ConstructorProperties({ "network_id", "port_id", "port_state", "mac_addr", "fixed_ips" })
-   protected InterfaceAttachment(@Nullable String networkId, String portId, @Nullable PortState portState,
-         @Nullable String macAddress, @Nullable ImmutableSet<IP> fixedIps) {
-      this.networkId = networkId;
+   @ConstructorProperties({ "net_id", "port_id", "port_state", "mac_addr", "fixed_ips" })
+   protected InterfaceAttachment(String networkId, String portId, PortState portState, String macAddress,
+         ImmutableSet<FixedIP> fixedIps) {
+      this.networkId = checkNotNull(networkId, "networkId");
       this.portId = checkNotNull(portId, "portId");
-      this.portState = portState;
-      this.macAddress = macAddress;
-      this.fixedIps = fixedIps;
+      this.portState = checkNotNull(portState, "portState");
+      this.macAddress = checkNotNull(macAddress, "macAddress");
+      this.fixedIps = checkNotNull(fixedIps, "fixedIps");
    }
 
-   @Nullable
    public String getNetworkId() {
       return this.networkId;
    }
@@ -132,18 +130,15 @@ public class InterfaceAttachment {
       return this.portId;
    }
 
-   @Nullable
    public PortState getPortState() {
       return this.portState;
    }
 
-   @Nullable
    public String getMacAddress() {
       return this.macAddress;
    }
 
-   @Nullable
-   public ImmutableSet<IP> getFixedIps() {
+   public ImmutableSet<FixedIP> getFixedIps() {
       return this.fixedIps;
    }
 
@@ -165,8 +160,8 @@ public class InterfaceAttachment {
    }
 
    protected Objects.ToStringHelper string() {
-      return Objects.toStringHelper("").omitNullValues().add("network_id", networkId).add("port_id", portId)
-            .add("port_state", portState).add("mac_addr", macAddress).add("fixed_ips", fixedIps);
+      return Objects.toStringHelper(this).add("networkId", networkId).add("portId", portId).add("portState", portState)
+            .add("macAddress", macAddress).add("fixedIps", fixedIps);
    }
 
    @Override
