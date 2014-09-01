@@ -26,6 +26,8 @@ import org.jclouds.openstack.nova.v2_0.domain.InterfaceAttachment;
 import org.jclouds.openstack.v2_0.ServiceType;
 import org.jclouds.openstack.v2_0.services.Extension;
 import org.jclouds.rest.annotations.Fallback;
+import org.jclouds.rest.annotations.Payload;
+import org.jclouds.rest.annotations.PayloadParam;
 import org.jclouds.rest.annotations.RequestFilters;
 import org.jclouds.rest.annotations.SelectJson;
 import org.jclouds.rest.annotations.WrapWith;
@@ -47,6 +49,7 @@ import javax.ws.rs.core.MediaType;
 @Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.ATTACH_INTERFACES)
 @RequestFilters(AuthenticateRequest.class)
 @Consumes(MediaType.APPLICATION_JSON)
+@Path("/servers")
 public interface AttachInterfaceApi {
 
    /**
@@ -58,7 +61,7 @@ public interface AttachInterfaceApi {
     */
    @Named("attachInterface:list")
    @GET
-   @Path("/servers/{serverId}/os-interface")
+   @Path("/{serverId}/os-interface")
    @SelectJson("interfaceAttachments")
    @Fallback(Fallbacks.EmptyFluentIterableOnNotFoundOr404.class)
    FluentIterable<InterfaceAttachment> list(@PathParam("serverId") String serverId);
@@ -74,26 +77,26 @@ public interface AttachInterfaceApi {
     */
    @Named("attachInterface:get")
    @GET
-   @Path("/servers/{serverId}/os-interface/{attachmentId}")
+   @Path("/{serverId}/os-interface/{attachmentId}")
    @SelectJson("interfaceAttachment")
    @Fallback(Fallbacks.NullOnNotFoundOr404.class)
    @Nullable
    InterfaceAttachment get(@PathParam("serverId") String serverId, @PathParam("attachmentId") String attachmentId);
 
    /**
-    * Creates a new port interface according to the provided object
+    * Creates a new port interface and associate with the given port
     * 
-    * @param interfaceAttachment
-    *           port interface object
+    * @param portId
+    *           The port ID
     * @return newly created port interface
     */
    @Named("attachInterface:create")
    @POST
-   @Path("/servers/{serverId}/os-interface")
+   @Path("/{serverId}/os-interface")
    @SelectJson("interfaceAttachment")
+   @Payload("%7B\"interfaceAttachment\":%7B\"port_id\":\"{portId}\"%7D%7D")
    @Produces(MediaType.APPLICATION_JSON)
-   InterfaceAttachment create(@PathParam("serverId") String serverId,
-         @WrapWith("interfaceAttachment") InterfaceAttachment interfaceAttachment);
+   InterfaceAttachment create(@PathParam("serverId") String serverId, @PayloadParam("portId") String portId);
 
    /**
     * Deletes a port interface for given server, return true if successful,
@@ -107,7 +110,7 @@ public interface AttachInterfaceApi {
     */
    @Named("attachInterface:delete")
    @DELETE
-   @Path("/servers/{serverId}/os-interface/{attachmentId}")
+   @Path("/{serverId}/os-interface/{attachmentId}")
    @Fallback(Fallbacks.FalseOnNotFoundOr404.class)
    boolean delete(@PathParam("serverId") String serverId, @PathParam("attachmentId") String attachmentId);
 }

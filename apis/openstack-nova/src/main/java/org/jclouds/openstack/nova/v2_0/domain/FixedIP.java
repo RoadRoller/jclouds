@@ -24,9 +24,9 @@ import javax.inject.Named;
 import java.beans.ConstructorProperties;
 
 /**
- * Describes an IP address
+ * Describes an fixed IP address
  */
-public class IP {
+public class FixedIP {
 
    @Named("ip_address")
    protected final String ipAddress;
@@ -34,7 +34,7 @@ public class IP {
    protected final String subnetId;
 
    @ConstructorProperties({ "ip_address", "subnet_id" })
-   protected IP(String ipAddress, String subnetId) {
+   protected FixedIP(String ipAddress, String subnetId) {
       this.ipAddress = ipAddress;
       this.subnetId = subnetId;
    }
@@ -66,7 +66,7 @@ public class IP {
          return true;
       if (obj == null || getClass() != obj.getClass())
          return false;
-      IP that = IP.class.cast(obj);
+      FixedIP that = FixedIP.class.cast(obj);
       return Objects.equal(this.ipAddress, that.ipAddress) && Objects.equal(this.subnetId, that.subnetId);
    }
 
@@ -101,7 +101,7 @@ public class IP {
        * Provide the ipAddress to the IP's Builder.
        *
        * @return the Builder.
-       * @see org.jclouds.openstack.nova.v2_0.domain.IP#getIpAddress()
+       * @see FixedIP#getIpAddress()
        */
       public Builder ipAddress(String ipAddress) {
          this.ipAddress = ipAddress;
@@ -112,7 +112,7 @@ public class IP {
        * Provide the subnetId to the IP's Builder.
        *
        * @return the Builder.
-       * @see org.jclouds.openstack.nova.v2_0.domain.IP#getSubnetId()
+       * @see FixedIP#getSubnetId()
        */
       public Builder subnetId(String subnetId) {
          this.subnetId = subnetId;
@@ -122,14 +122,14 @@ public class IP {
       /**
        * @return a IP constructed with this Builder.
        */
-      public IP build() {
-         return new IP(ipAddress, subnetId);
+      public FixedIP build() {
+         return new FixedIP(ipAddress, subnetId);
       }
 
       /**
        * @return a Builder from another IP.
        */
-      public Builder fromIP(IP in) {
+      public Builder fromIP(FixedIP in) {
          return this.ipAddress(in.getIpAddress()).subnetId(in.getSubnetId());
       }
    }

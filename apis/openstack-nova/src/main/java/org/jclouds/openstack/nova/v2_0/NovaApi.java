@@ -267,7 +267,7 @@ public interface NovaApi extends Closeable {
 	 */
 	@Delegate
 	Optional<? extends AttachInterfaceApi> getAttachInterfaceApi(
-			@EndpointParam(parser = RegionToEndpoint.class) String zone);
+			@EndpointParam(parser = RegionToEndpoint.class) String region);
 
    /**
     * @return the Zone codes configured
