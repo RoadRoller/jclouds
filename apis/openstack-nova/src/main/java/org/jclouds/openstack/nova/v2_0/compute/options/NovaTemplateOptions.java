@@ -109,7 +109,7 @@ public class NovaTemplateOptions extends TemplateOptions implements Cloneable {
             && equal(this.diskConfig, that.diskConfig)
             && equal(this.configDrive, that.configDrive)
             && equal(this.novaNetworks, that.novaNetworks)
-            && equal(this.availabilityZone, that.availabilityZone);;
+            && equal(this.availabilityZone, that.availabilityZone);
    }
 
    @Override
