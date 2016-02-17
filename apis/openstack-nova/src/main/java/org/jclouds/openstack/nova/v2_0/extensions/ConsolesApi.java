@@ -44,7 +44,7 @@ import com.google.common.annotations.Beta;
  *
  */
 @Beta
-@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.CONSOLES)
+@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.CONSOLES, name = "Consoles")
 @RequestFilters(AuthenticateRequest.class)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface ConsolesApi {

@@ -19,6 +19,7 @@ package org.jclouds.openstack.v2_0.functions;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Iterables.any;
 import static org.jclouds.openstack.v2_0.predicates.ExtensionPredicates.namespaceOrAliasEquals;
+import static org.jclouds.openstack.v2_0.predicates.ExtensionPredicates.nameEquals;
 import static org.jclouds.util.Optionals2.unwrapIfOptional;
 
 import java.net.URI;
@@ -59,13 +60,20 @@ public class PresentWhenExtensionAnnotationNamespaceEqualsAnyNamespaceInExtensio
             .getAnnotation(org.jclouds.openstack.v2_0.services.Extension.class));
       if (ext.isPresent()) {
          URI namespace = URI.create(ext.get().namespace());
+         String name = ext.get().name();
          List<Object> args = input.getInvocation().getArgs();
          if (args.isEmpty()) {
             if (any(extensions.getUnchecked(""), namespaceOrAliasEquals(namespace, aliases.get(namespace))))
                return input.getResult();
+            // Could not find extension by namespace or namespace alias. Try to find it by name next:
+            if (!"".equals(name) && any(extensions.getUnchecked(""), nameEquals(name)))
+               return input.getResult();
          } else if (args.size() == 1) {
             String arg0 = checkNotNull(args.get(0), "arg[0] in %s", input).toString();
             if (any(extensions.getUnchecked(arg0), namespaceOrAliasEquals(namespace, aliases.get(namespace))))
+               return input.getResult();
+            // Could not find extension by namespace or namespace alias. Try to find it by name next:
+            if (!"".equals(name) && any(extensions.getUnchecked(arg0), nameEquals(name)))
                return input.getResult();
          } else {
             throw new RuntimeException(String.format("expecting zero or one args %s", input));

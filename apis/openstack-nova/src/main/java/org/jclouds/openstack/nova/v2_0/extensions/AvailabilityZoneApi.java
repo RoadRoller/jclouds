@@ -38,7 +38,7 @@ import com.google.common.collect.FluentIterable;
  * Provides access to the OpenStack Compute (Nova) Availability Zone Extension API.
  */
 @Beta
-@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.AVAILABILITY_ZONE)
+@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.AVAILABILITY_ZONE, name = "AvailabilityZone")
 @RequestFilters(AuthenticateRequest.class)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/os-availability-zone")

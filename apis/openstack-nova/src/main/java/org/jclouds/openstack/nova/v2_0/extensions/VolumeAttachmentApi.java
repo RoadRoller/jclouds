@@ -59,7 +59,7 @@ import com.google.common.collect.FluentIterable;
  *
  */
 @Beta
-@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.VOLUMES)
+@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.VOLUMES, name = "VolumeAttachmentUpdate")
 @RequestFilters(AuthenticateRequest.class)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/servers")

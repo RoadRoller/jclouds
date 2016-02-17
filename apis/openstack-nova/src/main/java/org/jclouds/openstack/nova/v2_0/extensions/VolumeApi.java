@@ -52,7 +52,7 @@ import com.google.common.collect.FluentIterable;
  * Provides access to the OpenStack Compute (Nova) Volume extension API.
  */
 @Beta
-@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.VOLUMES)
+@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.VOLUMES, name = "Volumes")
 @RequestFilters(AuthenticateRequest.class)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface VolumeApi {

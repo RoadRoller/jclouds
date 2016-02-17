@@ -71,4 +71,9 @@ public @interface Extension {
     */
    String namespace();
 
+   /**
+    * @return the name of the extension
+    */
+   String name() default "";
+
 }

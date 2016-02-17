@@ -46,7 +46,7 @@ import javax.ws.rs.core.MediaType;
  * Provides access to the OpenStack Compute (Nova) Attach Interfaces API.
  */
 @Beta
-@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.ATTACH_INTERFACES)
+@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.ATTACH_INTERFACES, name = "AttachInterfaces")
 @RequestFilters(AuthenticateRequest.class)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/servers")

@@ -49,7 +49,7 @@ import com.google.common.collect.FluentIterable;
  * Provide access to the OpenStack Compute (Nova) Host Aggregates extension API.
  */
 @Beta
-@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.AGGREGATES)
+@Extension(of = ServiceType.COMPUTE, namespace = ExtensionNamespaces.AGGREGATES, name = "Aggregates")
 @RequestFilters(AuthenticateRequest.class)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/os-aggregates")
